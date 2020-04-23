@@ -3,12 +3,15 @@ import {Route} from 'react-router-dom';
 import Home from './components/Home';
 import LoginContainer from './container/LoginContainer';
 import AuthenticatedRoute from './components/AuthenticatedRoute';
-const Router=()=>{
+import {connect} from 'react-redux';
+const Router=({isLoggedin})=>{
     return(
         <div>
-            <AuthenticatedRoute isLoggedin={false} path='/' component={Home} />
+            <AuthenticatedRoute isLoggedin={isLoggedin} path='/' component={Home} />
             <Route path='/login' component={LoginContainer} />
         </div>
     )
 }
-export default Router;
+export default connect(state=>({
+    isLoggedin:state.auth.isLoggedin
+})) (Router);
